@@ -4,7 +4,7 @@ import {
 	InteractionResponseType,
 	MessageFlags,
 } from "discord-api-types/v10";
-import { clanPage, playerDetails } from "runescape";
+import { clanPage, playerDetails, playerPage } from "runescape";
 import { getBoolean, getString } from "../../utility/functions.js";
 
 export default {
@@ -14,15 +14,15 @@ export default {
 		const hide = getBoolean(interaction, "hide", false) ?? false;
 		const playerDetailsResponse = await playerDetails({ names: [playerName] });
 		const { clan, name } = playerDetailsResponse[0]!;
-		let content: string;
+		let content = `[\`${name}\`](${playerPage({ name }).RuneMetrics}) `;
 
 		if (clan) {
 			const clanPages = clanPage({ clan });
 			const mainClanLink = clanPages.RuneScape;
 			const runepixelsLink = clanPages.Runepixels;
-			content = `\`${name}\` is in the clan \`${clan}\`. (${`[RS](${mainClanLink}) | [Rp](${runepixelsLink})`})`;
+			content += `is in the clan \`${clan}\`. (${`[RS](${mainClanLink}) | [Rp](${runepixelsLink})`})`;
 		} else {
-			content = `\`${name}\` is not in a clan.`;
+			content += "is not in a clan.";
 		}
 
 		let flags = MessageFlags.SuppressEmbeds;
