@@ -20,21 +20,24 @@ export default {
 			const clanPages = clanPage({ clan });
 			const mainClanLink = clanPages.RuneScape;
 			const runepixelsLink = clanPages.Runepixels;
-			content = `\`${name}\` is in the clan \`${clan}\`. (${`[RS](<${mainClanLink}>) | [Rp](<${runepixelsLink}>)`})`;
+			content = `\`${name}\` is in the clan \`${clan}\`. (${`[RS](${mainClanLink}) | [Rp](${runepixelsLink})`})`;
 		} else {
 			content = `\`${name}\` is not in a clan.`;
+		}
+
+		let flags = MessageFlags.SuppressEmbeds;
+
+		if (hide) {
+			flags |= MessageFlags.Ephemeral;
 		}
 
 		const json: APIInteractionResponseChannelMessageWithSource = {
 			type: InteractionResponseType.ChannelMessageWithSource,
 			data: {
 				content: content,
+				flags,
 			},
 		};
-
-		if (hide) {
-			json.data.flags = MessageFlags.Ephemeral;
-		}
 
 		return Response.json(json, { status: 200 });
 	},
