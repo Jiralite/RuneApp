@@ -67,7 +67,7 @@ export default {
 			}
 
 			try {
-				return command.chatInput();
+				return command.chatInput(interaction);
 			} catch (error) {
 				console.error(error);
 			}

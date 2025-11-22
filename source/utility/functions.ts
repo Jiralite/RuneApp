@@ -1,6 +1,8 @@
 import {
+	type APIApplicationCommandInteractionDataStringOption,
 	type APIChatInputApplicationCommandInteraction,
 	type APIInteraction,
+	ApplicationCommandOptionType,
 	ApplicationCommandType,
 	InteractionType,
 } from "discord-api-types/v10";
@@ -22,4 +24,33 @@ export function isChatInputCommand(
 		interaction.type === InteractionType.ApplicationCommand &&
 		interaction.data.type === ApplicationCommandType.ChatInput
 	);
+}
+
+export function getString(
+	interaction: APIChatInputApplicationCommandInteraction,
+	name: string,
+	required: true,
+): string;
+
+export function getString(
+	interaction: APIChatInputApplicationCommandInteraction,
+	name: string,
+	required?: false,
+): string | null;
+
+export function getString(
+	interaction: APIChatInputApplicationCommandInteraction,
+	name: string,
+	required = false,
+) {
+	const option = interaction.data.options?.find(
+		(option): option is APIApplicationCommandInteractionDataStringOption =>
+			option.type === ApplicationCommandOptionType.String && option.name === name,
+	);
+
+	if (!option && required) {
+		throw new Error(`Missing required option: ${name}`);
+	}
+
+	return option?.value ?? null;
 }

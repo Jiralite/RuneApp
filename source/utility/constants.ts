@@ -1,0 +1,2 @@
+export const MAXIMUM_PLAYER_NAME_LENGTH = 12;
+export const MINIMUM_PLAYER_NAME_LENGTH = 1;

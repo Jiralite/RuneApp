@@ -2,12 +2,14 @@ import process from "node:process";
 import { info, setFailed, summary } from "@actions/core";
 import {
 	API,
+	ApplicationCommandOptionType,
 	ApplicationIntegrationType,
 	InteractionContextType,
 	type RESTPutAPIApplicationCommandsJSONBody,
 } from "@discordjs/core";
 import { REST } from "@discordjs/rest";
 import { z } from "zod/v4";
+import { MAXIMUM_PLAYER_NAME_LENGTH, MINIMUM_PLAYER_NAME_LENGTH } from "./constants.js";
 
 const envSchema = z.object({
 	GITHUB_ACTIONS: z
@@ -23,8 +25,24 @@ const errors = [];
 
 const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 	{
-		name: "test",
-		description: "Testing!",
+		name: "clan",
+		description: "Returns the clan of a player.",
+		options: [
+			{
+				type: ApplicationCommandOptionType.String,
+				name: "player-name",
+				description: "The player to check.",
+				required: false,
+				min_length: MINIMUM_PLAYER_NAME_LENGTH,
+				max_length: MAXIMUM_PLAYER_NAME_LENGTH,
+			},
+			{
+				type: ApplicationCommandOptionType.Boolean,
+				name: "hide",
+				description: "Whether to hide the response.",
+				required: false,
+			},
+		],
 		integration_types: [
 			ApplicationIntegrationType.GuildInstall,
 			ApplicationIntegrationType.UserInstall,

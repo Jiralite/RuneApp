@@ -1,3 +1,3 @@
-import test from "./chat-inputs/test.js";
+import clan from "./chat-inputs/clan.js";
 
-export const CHAT_INPUT_COMMANDS = [test] as const;
+export const CHAT_INPUT_COMMANDS = [clan] as const;
