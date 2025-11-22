@@ -32,7 +32,7 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 				type: ApplicationCommandOptionType.String,
 				name: "player-name",
 				description: "The player to check.",
-				required: false,
+				required: true,
 				min_length: MINIMUM_PLAYER_NAME_LENGTH,
 				max_length: MAXIMUM_PLAYER_NAME_LENGTH,
 			},
