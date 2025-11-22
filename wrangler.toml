@@ -4,6 +4,7 @@ main = "source/index.ts"
 compatibility_date = "2025-11-22"
 workers_dev = false
 routes = [{ pattern = "rune-app.jiralite.dev", custom_domain = true }]
+compatibility_flags = [ "nodejs_compat" ]
 
 [observability]
 enabled = true
