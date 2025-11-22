@@ -1,4 +1,5 @@
 import {
+	type APIApplicationCommandInteractionDataBooleanOption,
 	type APIApplicationCommandInteractionDataStringOption,
 	type APIChatInputApplicationCommandInteraction,
 	type APIInteraction,
@@ -30,13 +31,13 @@ export function getString(
 	interaction: APIChatInputApplicationCommandInteraction,
 	name: string,
 	required: true,
-): string;
+): APIApplicationCommandInteractionDataStringOption["value"];
 
 export function getString(
 	interaction: APIChatInputApplicationCommandInteraction,
 	name: string,
 	required?: false,
-): string | null;
+): APIApplicationCommandInteractionDataStringOption["value"] | null;
 
 export function getString(
 	interaction: APIChatInputApplicationCommandInteraction,
@@ -49,7 +50,36 @@ export function getString(
 	);
 
 	if (!option && required) {
-		throw new Error(`Missing required option: ${name}`);
+		throw new Error(`Missing required string option: ${name}`);
+	}
+
+	return option?.value ?? null;
+}
+
+export function getBoolean(
+	interaction: APIChatInputApplicationCommandInteraction,
+	name: string,
+	required: true,
+): APIApplicationCommandInteractionDataBooleanOption["value"];
+
+export function getBoolean(
+	interaction: APIChatInputApplicationCommandInteraction,
+	name: string,
+	required?: false,
+): APIApplicationCommandInteractionDataBooleanOption["value"] | null;
+
+export function getBoolean(
+	interaction: APIChatInputApplicationCommandInteraction,
+	name: string,
+	required = false,
+) {
+	const option = interaction.data.options?.find(
+		(option): option is APIApplicationCommandInteractionDataBooleanOption =>
+			option.type === ApplicationCommandOptionType.Boolean && option.name === name,
+	);
+
+	if (!option && required) {
+		throw new Error(`Missing required boolean option: ${name}`);
 	}
 
 	return option?.value ?? null;
