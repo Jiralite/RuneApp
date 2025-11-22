@@ -1,3 +1,10 @@
+import {
+	type APIChatInputApplicationCommandInteraction,
+	type APIInteraction,
+	ApplicationCommandType,
+	InteractionType,
+} from "discord-api-types/v10";
+
 export function hexToUint8Array(hex: string) {
 	const uint8 = new Uint8Array(hex.length / 2);
 
@@ -6,4 +13,13 @@ export function hexToUint8Array(hex: string) {
 	}
 
 	return uint8;
+}
+
+export function isChatInputCommand(
+	interaction: APIInteraction,
+): interaction is APIChatInputApplicationCommandInteraction {
+	return (
+		interaction.type === InteractionType.ApplicationCommand &&
+		interaction.data.type === ApplicationCommandType.ChatInput
+	);
 }

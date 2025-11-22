@@ -6,7 +6,8 @@ import {
 	InteractionType,
 	MessageFlags,
 } from "discord-api-types/v10";
-import { hexToUint8Array } from "./utility/functions.js";
+import { CHAT_INPUT_COMMANDS } from "./commands/index.js";
+import { hexToUint8Array, isChatInputCommand } from "./utility/functions.js";
 
 interface Env {
 	PUBLIC_KEY: string;
@@ -52,9 +53,29 @@ export default {
 			);
 		}
 
+		if (isChatInputCommand(interaction)) {
+			const command = CHAT_INPUT_COMMANDS.find(({ name }) => name === interaction.data.name);
+
+			if (!command) {
+				return Response.json(
+					{
+						data: { content: "Unknown.", flags: MessageFlags.Ephemeral },
+						type: InteractionResponseType.ChannelMessageWithSource,
+					} satisfies APIInteractionResponseChannelMessageWithSource,
+					{ status: 200 },
+				);
+			}
+
+			try {
+				return command.chatInput();
+			} catch (error) {
+				console.error(error);
+			}
+		}
+
 		return Response.json(
 			{
-				data: { content: "Woah!", flags: MessageFlags.Ephemeral },
+				data: { content: "Unknown.", flags: MessageFlags.Ephemeral },
 				type: InteractionResponseType.ChannelMessageWithSource,
 			} satisfies APIInteractionResponseChannelMessageWithSource,
 			{ status: 200 },
