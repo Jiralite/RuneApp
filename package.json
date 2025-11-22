@@ -8,7 +8,8 @@
 		"format": "biome check --write",
 		"dev": "wrangler dev",
 		"deploy": "wrangler deploy",
-		"update": "pnpm update --interactive --latest"
+		"update": "pnpm update --interactive --latest",
+		"deploy-commands": "node --env-file=.dev.vars source/utility/deploy-commands.ts"
 	},
 	"dependencies": {
 		"discord-api-types": "^0.38.34"
