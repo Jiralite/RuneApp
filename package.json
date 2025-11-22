@@ -13,9 +13,13 @@
 		"discord-api-types": "^0.38.34"
 	},
 	"devDependencies": {
+		"@actions/core": "^1.11.1",
 		"@biomejs/biome": "^2.3.7",
 		"@cloudflare/workers-types": "^4.20251121.0",
+		"@discordjs/core": "^2.4.0",
+		"@discordjs/rest": "^2.6.0",
 		"typescript": "^5.9.3",
-		"wrangler": "^4.50.0"
+		"wrangler": "^4.50.0",
+		"zod": "^4.1.12"
 	}
 }
