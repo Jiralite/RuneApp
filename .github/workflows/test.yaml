@@ -23,9 +23,6 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Build dependencies
-        run: pnpm run build
-
       - name: Validate TypeScript
         run: pnpm run test
   style:
