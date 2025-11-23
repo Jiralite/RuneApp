@@ -9,12 +9,12 @@
 		"dev": "wrangler dev",
 		"deploy": "wrangler deploy",
 		"update": "pnpm update --interactive --latest",
-		"deploy-commands-dev": "node --env-file=.dev.vars source/utility/deploy-commands.ts",
+		"deploy-commands-dev": "tsx --env-file=.dev.vars source/utility/deploy-commands.ts",
 		"deploy-commands": "tsx source/utility/deploy-commands.ts"
 	},
 	"dependencies": {
 		"discord-api-types": "^0.38.34",
-		"runescape": "^0.13.1"
+		"runescape": "^0.13.2"
 	},
 	"devDependencies": {
 		"@actions/core": "^1.11.1",

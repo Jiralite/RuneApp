@@ -82,6 +82,27 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 			InteractionContextType.PrivateChannel,
 		],
 	},
+	{
+		name: "spotlight",
+		description: "Returns the spotlight schedule.",
+		options: [
+			{
+				type: ApplicationCommandOptionType.Boolean,
+				name: "hide",
+				description: "Whether to hide the response.",
+				required: false,
+			},
+		],
+		integration_types: [
+			ApplicationIntegrationType.GuildInstall,
+			ApplicationIntegrationType.UserInstall,
+		],
+		contexts: [
+			InteractionContextType.Guild,
+			InteractionContextType.BotDM,
+			InteractionContextType.PrivateChannel,
+		],
+	},
 ] as const;
 
 const rest = new REST({ version: "10" }).setToken(DISCORD_TOKEN);
