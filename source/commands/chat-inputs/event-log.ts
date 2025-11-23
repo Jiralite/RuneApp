@@ -5,7 +5,14 @@ import {
 	InteractionResponseType,
 	MessageFlags,
 } from "discord-api-types/v10";
-import { avatar, type Profile, profile, RuneScapeError, RuneScapeErrorCode } from "runescape";
+import {
+	avatar,
+	type Profile,
+	profile,
+	RuneScapeError,
+	RuneScapeErrorCode,
+	standardiseProfileActivityLog,
+} from "runescape";
 import { getBoolean, getString } from "../../utility/functions.js";
 
 export default {
@@ -57,7 +64,7 @@ export default {
 		const content = profileResponse.activities
 			.map((activity) => {
 				const timestamp = Math.floor(activity.timestamp / 1000);
-				return `- ${activity.text} - <t:${timestamp}:s> (<t:${timestamp}:R>)`;
+				return `- ${standardiseProfileActivityLog(activity.text)} - <t:${timestamp}:s> (<t:${timestamp}:R>)`;
 			})
 			.join("\n");
 
