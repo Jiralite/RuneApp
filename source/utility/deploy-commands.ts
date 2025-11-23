@@ -53,6 +53,35 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 			InteractionContextType.PrivateChannel,
 		],
 	},
+	{
+		name: "event-log",
+		description: "Returns the event log of a player.",
+		options: [
+			{
+				type: ApplicationCommandOptionType.String,
+				name: "player-name",
+				description: "The player to check.",
+				required: true,
+				min_length: MINIMUM_PLAYER_NAME_LENGTH,
+				max_length: MAXIMUM_PLAYER_NAME_LENGTH,
+			},
+			{
+				type: ApplicationCommandOptionType.Boolean,
+				name: "hide",
+				description: "Whether to hide the response.",
+				required: false,
+			},
+		],
+		integration_types: [
+			ApplicationIntegrationType.GuildInstall,
+			ApplicationIntegrationType.UserInstall,
+		],
+		contexts: [
+			InteractionContextType.Guild,
+			InteractionContextType.BotDM,
+			InteractionContextType.PrivateChannel,
+		],
+	},
 ] as const;
 
 const rest = new REST({ version: "10" }).setToken(DISCORD_TOKEN);
