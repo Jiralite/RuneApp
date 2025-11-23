@@ -3,9 +3,14 @@ import {
 	type APIApplicationCommandInteractionDataStringOption,
 	type APIChatInputApplicationCommandInteraction,
 	type APIInteraction,
+	type APIInteractionResponseDeferredChannelMessageWithSource,
 	ApplicationCommandOptionType,
 	ApplicationCommandType,
+	InteractionResponseType,
 	InteractionType,
+	MessageFlags,
+	type RESTPatchAPIInteractionOriginalResponseJSONBody,
+	Routes,
 } from "discord-api-types/v10";
 
 export function hexToUint8Array(hex: string) {
@@ -83,4 +88,55 @@ export function getBoolean(
 	}
 
 	return option?.value ?? null;
+}
+
+export function deferChannelMessageWithSource(
+	data: APIInteractionResponseDeferredChannelMessageWithSource["data"] = {},
+) {
+	return Response.json(
+		{
+			type: InteractionResponseType.DeferredChannelMessageWithSource,
+			data,
+		} satisfies APIInteractionResponseDeferredChannelMessageWithSource,
+		{ status: 200 },
+	);
+}
+
+export function editDeferredMessage(
+	interaction: APIChatInputApplicationCommandInteraction,
+	ctx: ExecutionContext,
+	handler: () => Promise<RESTPatchAPIInteractionOriginalResponseJSONBody>,
+) {
+	ctx.waitUntil(
+		(async () => {
+			try {
+				const response = await fetch(
+					`https://discord.com/api/v10${Routes.webhookMessage(interaction.application_id, interaction.token, "@original")}`,
+					{
+						method: "PATCH",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify(await handler()),
+					},
+				);
+
+				if (!response.ok) {
+					throw await response.json();
+				}
+			} catch (error) {
+				console.error("Error in deferred interaction handler.", error);
+
+				await fetch(
+					`https://discord.com/api/v10${Routes.webhookMessage(interaction.application_id, interaction.token, "@original")}`,
+					{
+						method: "PATCH",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({
+							content: "An error occurred. Please report this!",
+							flags: MessageFlags.Ephemeral,
+						} satisfies RESTPatchAPIInteractionOriginalResponseJSONBody),
+					},
+				);
+			}
+		})(),
+	);
 }

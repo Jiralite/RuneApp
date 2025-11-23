@@ -14,7 +14,7 @@ interface Env {
 }
 
 export default {
-	async fetch(request, env) {
+	async fetch(request, env, ctx) {
 		if (request.method !== "POST") {
 			return new Response(null, { status: 405 });
 		}
@@ -67,9 +67,16 @@ export default {
 			}
 
 			try {
-				return await command.chatInput(interaction);
+				return await command.chatInput(interaction, ctx);
 			} catch (error) {
 				console.error(error);
+				return Response.json(
+					{
+						data: { content: "An error occurred.", flags: MessageFlags.Ephemeral },
+						type: InteractionResponseType.ChannelMessageWithSource,
+					} satisfies APIInteractionResponseChannelMessageWithSource,
+					{ status: 200 },
+				);
 			}
 		}
 
