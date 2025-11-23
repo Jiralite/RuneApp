@@ -18,4 +18,4 @@ export const MinigameToWikiURL = {
 	[Minigame.Heist]: "https://runescape.wiki/w/Heist",
 	[Minigame.MobilisingArmies]: "https://runescape.wiki/w/Mobilising_Armies",
 	[Minigame.TroubleBrewing]: "https://runescape.wiki/w/Trouble_Brewing",
-} satisfies Record<Minigame, string>;
+} as const satisfies Readonly<Record<Minigame, string>>;
