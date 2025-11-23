@@ -34,7 +34,7 @@ export default {
 		const json: APIInteractionResponseChannelMessageWithSource = {
 			type: InteractionResponseType.ChannelMessageWithSource,
 			data: {
-				content: content,
+				content,
 				flags,
 			},
 		};
