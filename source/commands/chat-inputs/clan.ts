@@ -31,14 +31,15 @@ export default {
 			flags |= MessageFlags.Ephemeral;
 		}
 
-		const json: APIInteractionResponseChannelMessageWithSource = {
-			type: InteractionResponseType.ChannelMessageWithSource,
-			data: {
-				content,
-				flags,
-			},
-		};
-
-		return Response.json(json, { status: 200 });
+		return Response.json(
+			{
+				type: InteractionResponseType.ChannelMessageWithSource,
+				data: {
+					content,
+					flags,
+				},
+			} satisfies APIInteractionResponseChannelMessageWithSource,
+			{ status: 200 },
+		);
 	},
 } as const;
