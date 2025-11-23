@@ -57,7 +57,7 @@ export default {
 		const content = profileResponse.activities
 			.map((activity) => {
 				const timestamp = Math.floor(activity.timestamp / 1000);
-				return `- ${activity.details} - <t:${timestamp}:s> (<t:${timestamp}:R>)`;
+				return `- ${activity.text} - <t:${timestamp}:s> (<t:${timestamp}:R>)`;
 			})
 			.join("\n");
 
