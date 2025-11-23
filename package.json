@@ -13,6 +13,7 @@
 		"deploy-commands": "tsx source/utility/deploy-commands.ts"
 	},
 	"dependencies": {
+		"@sentry/cloudflare": "10.22.0",
 		"discord-api-types": "^0.38.34",
 		"runescape": "^0.13.2"
 	},

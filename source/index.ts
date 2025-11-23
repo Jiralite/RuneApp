@@ -1,3 +1,4 @@
+import { captureException, withSentry } from "@sentry/cloudflare";
 import {
 	type APIInteraction,
 	type APIInteractionResponseChannelMessageWithSource,
@@ -11,9 +12,10 @@ import { hexToUint8Array, isChatInputCommand } from "./utility/functions.js";
 
 interface Env {
 	PUBLIC_KEY: string;
+	SENTRY_DATA_SOURCE_NAME: string;
 }
 
-export default {
+export default withSentry((env) => ({ dsn: env.SENTRY_DATA_SOURCE_NAME, sendDefaultPii: true }), {
 	async fetch(request, env, ctx) {
 		if (request.method !== "POST") {
 			return new Response(null, { status: 405 });
@@ -69,7 +71,8 @@ export default {
 			try {
 				return await command.chatInput(interaction, ctx);
 			} catch (error) {
-				console.error(error);
+				captureException(error);
+
 				return Response.json(
 					{
 						data: { content: "An error occurred.", flags: MessageFlags.Ephemeral },
@@ -88,4 +91,4 @@ export default {
 			{ status: 200 },
 		);
 	},
-} satisfies ExportedHandler<Env>;
+} satisfies ExportedHandler<Env>);

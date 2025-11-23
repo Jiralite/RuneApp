@@ -1,3 +1,4 @@
+import { captureException } from "@sentry/cloudflare";
 import {
 	type APIApplicationCommandInteractionDataBooleanOption,
 	type APIApplicationCommandInteractionDataStringOption,
@@ -123,7 +124,7 @@ export function editDeferredMessage(
 					throw await response.json();
 				}
 			} catch (error) {
-				console.error("Error in deferred interaction handler.", error);
+				captureException(error);
 
 				await fetch(
 					`https://discord.com/api/v10${Routes.webhookMessage(interaction.application_id, interaction.token, "@original")}`,
