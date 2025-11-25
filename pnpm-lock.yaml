@@ -15,8 +15,8 @@ importers:
         specifier: ^0.38.34
         version: 0.38.34
       runescape:
-        specifier: ^0.13.2
-        version: 0.13.2
+        specifier: ^0.13.3
+        version: 0.13.3
     devDependencies:
       '@actions/core':
         specifier: ^1.11.1
@@ -601,8 +601,8 @@ packages:
   resolve-pkg-maps@1.0.0:
     resolution: {integrity: sha512-seS2Tj26TBVOC2NIc2rOe2y2ZO7efxITtLZcGSOnHHNOQ7CkiUBfw0Iw2ck6xkIhPwLhKNLS8BO+hEpngQlqzw==}
 
-  runescape@0.13.2:
-    resolution: {integrity: sha512-RRNbpcfH8vxtuC56t7AUwdEdSMQnJfzyvqay8a7LpbBzjVbErF6iThg3hQ+4CLWu0DE/6V9zVtRaQfykm5VLSw==}
+  runescape@0.13.3:
+    resolution: {integrity: sha512-EvIb/1seMVJgFijLK3+RAqHXqQblWyRFNkC0Yvls+At8HmslZzBHOpUz1HJA1bhbp8L3OWTlfYRrn6fA8UbZrA==}
 
   semver@7.7.2:
     resolution: {integrity: sha512-RF0Fw+rO5AMf9MAyaRXI4AV0Ulj5lMHqVxxdSgiVbixSCXoEmmX/jk0CuJw4+3SqroYO9VoUh+HcuJivvtJemA==}
@@ -1139,7 +1139,7 @@ snapshots:
 
   resolve-pkg-maps@1.0.0: {}
 
-  runescape@0.13.2:
+  runescape@0.13.3:
     dependencies:
       csv-parse: 6.1.0
       dayjs: 1.11.19

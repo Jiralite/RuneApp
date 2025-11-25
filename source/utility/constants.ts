@@ -1,7 +1,7 @@
 import { Minigame } from "runescape";
 
-export const MAXIMUM_PLAYER_NAME_LENGTH = 12;
-export const MINIMUM_PLAYER_NAME_LENGTH = 1;
+export const MAXIMUM_PLAYER_NAME_LENGTH = 12 as const;
+export const MINIMUM_PLAYER_NAME_LENGTH = 1 as const;
 
 export const MinigameToWikiURL = {
 	[Minigame.PestControl]: "https://runescape.wiki/w/Pest_Control",
