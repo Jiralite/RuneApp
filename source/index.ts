@@ -1,3 +1,5 @@
+import { API } from "@discordjs/core/http-only";
+import { REST } from "@discordjs/rest";
 import { captureException, withSentry } from "@sentry/cloudflare";
 import {
 	type APIInteraction,
@@ -7,11 +9,13 @@ import {
 	InteractionType,
 	MessageFlags,
 } from "discord-api-types/v10";
+import { playerCount } from "runescape";
 import { CHAT_INPUT_COMMANDS } from "./commands/index.js";
 import { hexToUint8Array, isChatInputCommand } from "./utility/functions.js";
 
 interface Env {
 	PUBLIC_KEY: string;
+	DISCORD_TOKEN: string;
 	SENTRY_DATA_SOURCE_NAME: string;
 }
 
@@ -90,5 +94,10 @@ export default withSentry((env) => ({ dsn: env.SENTRY_DATA_SOURCE_NAME, sendDefa
 			} satisfies APIInteractionResponseChannelMessageWithSource,
 			{ status: 200 },
 		);
+	},
+	async scheduled(controller, env) {
+		await new API(new REST().setToken(env.DISCORD_TOKEN)).applications.editCurrent({
+			description: `Interacts with the non-existent RuneScape API.\n\nPlayers online: ${(await playerCount()).toLocaleString()} (as of <t:${Math.floor(controller.scheduledTime / 1000)}:R>)`,
+		});
 	},
 } satisfies ExportedHandler<Env>);

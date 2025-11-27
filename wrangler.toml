@@ -6,5 +6,8 @@ workers_dev = false
 routes = [{ pattern = "rune-app.jiralite.dev", custom_domain = true }]
 compatibility_flags = [ "nodejs_compat" ]
 
+[triggers]
+crons = ["0 * * * *"]
+
 [observability]
 enabled = true
