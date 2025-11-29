@@ -132,6 +132,27 @@ const COMMANDS: RESTPutAPIApplicationCommandsJSONBody = [
 			InteractionContextType.PrivateChannel,
 		],
 	},
+	{
+		name: "wilderness-flash-events",
+		description: "Returns the wilderness flash events schedule.",
+		options: [
+			{
+				type: ApplicationCommandOptionType.Boolean,
+				name: "hide",
+				description: "Whether to hide the response.",
+				required: false,
+			},
+		],
+		integration_types: [
+			ApplicationIntegrationType.GuildInstall,
+			ApplicationIntegrationType.UserInstall,
+		],
+		contexts: [
+			InteractionContextType.Guild,
+			InteractionContextType.BotDM,
+			InteractionContextType.PrivateChannel,
+		],
+	},
 ] as const;
 
 const rest = new REST({ version: "10" }).setToken(DISCORD_TOKEN);
