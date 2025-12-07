@@ -4,7 +4,15 @@ import {
 	MessageFlags,
 	SeparatorSpacingSize,
 } from "discord-api-types/v10";
-import { avatar, type HiScore, hiScore, playerPage, RuneScapeAPIError } from "runescape";
+import {
+	avatar,
+	type HiScore,
+	hiScore,
+	hiScoreComparePage,
+	playerPageRuneMetrics,
+	playerPageRunepixels,
+	RuneScapeAPIError,
+} from "runescape";
 import { formatEmoji, SkillToEmoji } from "../../utility/emojis.js";
 import {
 	deferChannelMessageWithSource,
@@ -61,7 +69,6 @@ export default {
 				skillsContent.push(formatSkill(skill, maximumLevelLength, maximumTotalExperienceLength));
 			}
 
-			const playerPageResponse = playerPage({ name: playerName });
 			let flags = MessageFlags.IsComponentsV2;
 
 			if (hide) {
@@ -86,7 +93,7 @@ export default {
 									},
 									{
 										type: ComponentType.TextDisplay,
-										content: `[RuneScape](${playerPageResponse.RuneScape}) | [RuneMetrics](${playerPageResponse.RuneMetrics}) | [Runepixels](${playerPageResponse.Runepixels})`,
+										content: `[RuneScape](${hiScoreComparePage(playerName)}) | [RuneMetrics](${playerPageRuneMetrics(playerName)}) | [Runepixels](${playerPageRunepixels(playerName)})`,
 									},
 								],
 							},

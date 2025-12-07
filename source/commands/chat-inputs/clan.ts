@@ -2,7 +2,7 @@ import {
 	type APIChatInputApplicationCommandInteraction,
 	MessageFlags,
 } from "discord-api-types/v10";
-import { clanPage, playerDetails, playerPage } from "runescape";
+import { clanPage, clanPageRunepixels, playerDetails, playerPageRuneMetrics } from "runescape";
 import {
 	deferChannelMessageWithSource,
 	editDeferredMessage,
@@ -19,13 +19,10 @@ export default {
 		editDeferredMessage(interaction, ctx, async () => {
 			const playerDetailsResponse = await playerDetails({ names: [playerName] });
 			const { clan, name } = playerDetailsResponse[0]!;
-			let content = `[\`${name}\`](${playerPage({ name }).RuneMetrics}) `;
+			let content = `[\`${name}\`](${playerPageRuneMetrics(name)}) `;
 
 			if (clan) {
-				const clanPages = clanPage({ clan });
-				const mainClanLink = clanPages.RuneScape;
-				const runepixelsLink = clanPages.Runepixels;
-				content += `is in the clan \`${clan}\`. (${`[RS](${mainClanLink}) | [Rp](${runepixelsLink})`})`;
+				content += `is in the clan \`${clan}\`. (${`[RS](${clanPage(clan)}) | [Rp](${clanPageRunepixels(clan)})`})`;
 			} else {
 				content += "is not in a clan.";
 			}

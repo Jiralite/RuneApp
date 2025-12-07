@@ -17,7 +17,7 @@
 		"@discordjs/rest": "^2.6.0",
 		"@sentry/cloudflare": "10.22.0",
 		"discord-api-types": "^0.38.34",
-		"runescape": "^0.13.3"
+		"runescape": "^0.14.0"
 	},
 	"devDependencies": {
 		"@actions/core": "^1.11.1",
