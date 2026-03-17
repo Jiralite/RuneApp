@@ -31,7 +31,6 @@
 				"useJsxKeyInIterable": "on"
 			},
 			"nursery": {
-				"noDeprecatedImports": "on",
 				"noFloatingPromises": "on"
 			},
 			"performance": {
@@ -70,6 +69,7 @@
 				"useSingleVarDeclarator": "error"
 			},
 			"suspicious": {
+				"noDeprecatedImports": "on",
 				"noAlert": "error",
 				"noConstantBinaryExpressions": "on",
 				"noConstEnum": "off"
