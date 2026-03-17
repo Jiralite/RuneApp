@@ -9,7 +9,7 @@ export function formatEmoji(emoji: Emoji) {
 	return `<:${emoji.name}:${emoji.id}>`;
 }
 
-export const EMOJIS = {
+const EMOJIS = {
 	Agility: { name: "agility", id: "1442895117529780366" },
 	Archaeology: { name: "archaeology", id: "1442895119010369696" },
 	Attack: { name: "attack", id: "1442895120528838769" },
